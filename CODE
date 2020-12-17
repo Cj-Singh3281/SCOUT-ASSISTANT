@@ -1,0 +1,395 @@
+import pyttsx3
+import webbrowser
+import os
+import speech_recognition as sr
+import subprocess
+import json
+import random
+import operator
+import datetime
+import wikipedia
+import os
+import winshell
+import pyjokes
+import smtplib
+import time
+import ctypes
+import shutil
+from twilio.rest import Client
+import progress
+from bs4 import BeautifulSoup
+import win32com.client as wincl
+from urllib.request import urlopen
+import requests
+
+engine = pyttsx3.init('sapi5') 
+voices = engine.getProperty('voices') 
+engine.setProperty('voice', voices[0].id) 
+
+#INITIALISING THE SPEAK FUNCTION
+
+def speak(audio):
+	engine.say(audio)
+	engine.runAndWait()
+
+# FUNCTION TO TAKE INPUT FROM USER
+
+def UserInput():
+	r = sr.Recognizer()
+	with sr.Microphone() as source:
+		r.adjust_for_ambient_noise(source)
+		print("Listening....")
+		audio = r.listen(source)
+	try:
+
+		print("Recognizing....")
+		query = r.recognize_google(audio)
+		speak("Got you")
+		print(f"You Said: {query}")
+		print()
+	except Exception as e:
+		print(e)
+		print("Unable to Recognize your Voice")
+		speak("Unable to recognize ,Please try Again")
+		return UserInput()
+
+	return query
+
+# GREETING THE USER
+
+def greeting():
+	speak("Hello User")
+	speak("What shall i call you?")
+	print("Please Provide your name")
+
+	query=UserInput().lower()
+
+	assist_name="SCOUT"
+	time = (datetime.datetime.now().hour)
+	hour = int(time)
+
+	if hour>0 and hour<12:
+
+		print("---------->            GOOD MORNING "+ query.upper() +"                <----------")
+		speak("Good Morning" + query)
+		speak("MY CREATOR CJ SINGH WELCOMES YOU")
+		print("---------->        MY CREATOR CJ SINGH WELCOMES YOU           <----------")
+		print("---------->           I AM YOUR ASSISTANT - SCOUT             <----------")
+		speak("I AM YOUR ASSISTANT " + assist_name)
+		
+
+	elif  hour>12 and hour<18:
+
+		print("---------->           GOOD AFTERNOON "+ query.upper() +"                <----------")
+		speak("GOOD AFTERNOON" + query)
+		speak("MY CREATOR CJ SINGH WELCOMES YOU")
+		print("---------->        MY CREATOR CJ SINGH WELCOMES YOU           <----------")
+		print("---------->           I AM YOUR ASSISTANT - SCOUT             <----------")
+		speak("I AM YOUR ASSISTANT " + assist_name)
+		
+
+	else:
+		print("---------->            GOOD EVENING "+ query.upper() +"                  <----------")
+		speak("Good Evening" + query)
+		speak("MY CREATOR CJ SINGH WELCOMES YOU")
+		print("---------->       MY CREATOR CJ SINGH WELCOMES YOU             <----------")
+		print("---------->           I AM YOUR ASSISTANT - SCOUT              <----------")
+		speak("I AM YOUR ASSISTANT " + assist_name)
+
+def sendEmail(to, content): 
+    server = smtplib.SMTP('smtp.gmail.com', 587) 
+    server.ehlo() 
+    server.starttls()
+    server.ehlo() 
+      
+    # Enable low security in gmail 
+    server.login('jimmysal.408@gmail.com', 'beardman@3281') 
+    server.sendmail('jimmysal.408@gmail.com', to, content) 
+    server.close()   
+
+# MAIN FUNCTION STARTS HERE 
+
+if __name__ == '__main__': 
+	clear = lambda: os.system('cls') 
+
+	clear()
+	greeting()
+
+	while True:
+
+		
+
+		speak("So How may I help you?")
+		query = UserInput().lower()
+        
+
+		if (("linux" in  query) and ("scan" in query)):   
+		 	speak("SCANNING YOUR LINUX SYSTEM")
+		 	print("Scanning....")
+		 	os.system("timeout 3")
+		 	print("Scanned Successfully....")
+		 	speak("Scan was successful")
+
+		elif (("windows" in  query) and ("scan" in query)):   
+		 	speak("Scanning your windows device")
+		 	print("Scanning....")
+		 	os.system("timeout 3")
+		 	print("Scanned Successfully.....")
+		 	speak("Scan was successful")
+
+		elif ((("mac" in  query) or ("mac os" in query)) and ("scan" in query)):   
+		 	speak("Scanning your mac device")
+		 	print("Scanning....")
+		 	os.system("timeout 3")
+		 	print("Scanned Successfully....")
+		 	speak("Scan was successful")
+
+		elif (("scan" in  query) and (("device" in query) or ("machine" in query) or ("mobile" in query) or ("tablet" in query) or ("pc" in query) or ("system" in query))):
+			speak("We are scanning")
+			print("Scanning....")
+			os.system("timeout 3")
+			print("Scanned Sucessfully")
+			speak(" scan was sucessful")
+
+
+	
+		elif (("don't" in query) or ("dont" in query) or (("do" in query) and ("not" in query)) or ("prohibit" in query ) or ("forbid" in query)):
+			speak("GIVE ME SOMETHING MORE INTERESTING TO DO")
+			speak("I CAN DO EVERYTHING")
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query))    and   (("firefox" in query) or (("2nd" in query) and ("best" in query) and ("browser" in query)) or (("second" in query) and ("best" in query) and ("browser" in query)) or ("mozilla" in query)):
+			speak("LAUNCHING MOZILLA FIREFOX, ENJOY BROWSING")
+			os.system("firefox")
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query)) and (("explorer" in query) or (("worst" in query) and ("browser" in query)) or (("bad" in query) and ("browser" in query))):
+			speak("LAUNCING THE INTERNET EXPLORER, HAVE A SAFE BROWSING")
+			os.system("start iexplore")	
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query)) and ((("microsoft" in query) and ("edge" in query)) or ("edge" in query) or ("microsoftedge" in query) or (("ms" in query) and ("edge" in query)) or (("windows" in query) and ("browser" in query)) or (("microsoft" in query) and ("browser" in query))):
+			speak("LAUNCHING THE MICROSOFT EDGE")
+			os.system("msedge")	
+
+
+																																																											
+		elif (("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or ("launch" in query))     and   (("chrome" in query) or ("browser" in query)  or ("google browser" in query) or (("best" in query) and ("browser" in query))):
+			speak("LAUNCHING GOOGLE CHROME FOR YOU, HAPPY BROWSING")
+			os.system("chrome")
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query)) and (("sublimetext" in query) or (("sublime" in query) and ("text" in query))   or (("sublime" in query) and ("editor" in query)) or ("sublime" in query)):
+			speak("LAUNCHING SUBLIME TEXT EDITOR ON YOUR DEVICE")
+			os.system("sublime_text")
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("make" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query))    and    (("notepad" in query) or ("editor" in query) or (("text" in query) and ("editor" in query)) or ("note" in query) or (("note" in query) and ("pad"in query))):
+			speak("LAUNCHING NOTEPAD")	
+			os.system("notepad")
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("listen" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query))    and    (("media" in query) or ("player" in query) or ("songs" in query) or ("videos" in query) or ("picture" in query) or ("pictures" in query) or ("song" in query) or ("video" in query) or ("music" in query)): 
+			speak("LAUNCHING THE WINDOWS MEDIA PLAYER FOR YOU")
+			os.system("wmplayer")
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("make" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query))    and   (("painting" in query) or ("paint" in query) or ("drawing" in query) or ("sketch"in query) or ("draw" in query)):
+			speak("HERE IS PAINT FOR YOU")
+			os.system("mspaint")
+
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query))    and   (("cal" in query) or ("calculation" in query) or ("calculator" in query) or ("calculations" in query) or ("maths" in query)  or ("addition" in query) or ("multiplication" in query) or ("multiply" in query) or ("subtract" in query) or ("division" in query) or ("divide" in query) or ("mathematical operation" in query)):
+	 		speak("HERE YOU CAN DO ALL CALCULATIONS")
+	 		os.system("calc")
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query))  and  (("powershell" in query) or (("power" in query) and ("shell" in query))): 
+			speak("STARTING THE WINDOWS POWERSHELL")
+			os.system("start Powershell")
+
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("open" in query) or ("need" in query) or ("want" in query) or ("start" in query) or ("play" in query) or ("launch" in query))   and   (("adobe" in query) or ("acrobat" in query) or ("reader" in query) or (("pdf" in query) and ("viewer" in query))):
+			speak("LAUNCHING THE ADOBE ACROBAT READER FOR YOU")
+			os.system("acrord32")
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query)) and (("snipping" in query) or ("snip" in query) or (("snip" in query) and ("tool" in query)) or ("screenshot" in query)):
+			speak("YOU ARE NOW USING THE SNIPPING TOOL")
+			os.system("snippingtool")	
+
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("create" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("make" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query))   and   (("wps" in query) or ("office" in query) or ("pdf" in query)  or ("spreadsheet" in query) or ("spreadsheets" in query) or ("documents" in query) or ("document" in query) or ("pdfs" in query) or ("presentation" in query) or("presentations" in query)):
+			speak("LAUNCHING THE WPS OFFICE")
+			os.system("ksolaunch")
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("open" in query) or ("need" in query) or ("want" in query) or ("start" in query) or ("play" in query) or("launch" in query)) and ((("windows" in query) and ("store" in query)) or (("microsoft" in query) and ("store" in query)) or ("buy" in query) or ("purchase" in query) or (("game" in query) and ("store" in query)) or (("games" in query) and ("store" in query)) or (("app" in query) and ("store" in query)) or("shop" in query) or ("shopping" in query) or (("apps" in query) and ("store" in query))):
+			speak("LAUNCHING MICROSOFT WINDOWS STORE, HAPPY SHOPPING")
+			os.system("start ms-windows-store:")
+			
+
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query))  and   (("toolkit" in query) or (("tool" in query) and  ("kit" in query))):
+			speak("STARTING WINDOWS TOOLKIT FOR YOU")
+			os.system("toolkit")
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query))	and ((("oracle" in query) and ("vm" in query)) or ("virtualbox" in query) or ("virtualbox" in query) or (("virtual" in query) and ("machine" in query)) or (("virtual" in query) and ("box" in query))):
+			speak("LAUNCHING THE ORACLE VM VIRTUALBOX")
+			os.system("virtualbox")
+
+
+
+		elif (("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query)) and ((("microsoft" in query) and ("onedrive" in query)) or ("onedrive" in query)  or (("ms" in query) and ("onedrive" in query)) or (("one" in query) and ("drive" in query))):
+			speak("LAUNCHING THE MICROSOFT ONE DRIVE CLOUD STORAGE ON YOUR SYSTEM")
+			os.system("OneDrive")
+
+
+
+		elif (("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query)) and (("anaconda" in query) or ("anaconda3" in query) or ("jupyter" in query)  or ("jupyterlab" in query) or ("spyder" in query) or (("qt" in query) and ("console" in query))):
+			speak("LAUNCHING THE ANACONDA NAVIGATOR ON YOUR SYSTEM")
+			os.system("anaconda-navigator")
+
+
+
+		elif(("run" in query) or ("activate" in query) or ("execute" in query) or ("want" in query) or ("need" in query) or ("make" in query) or ("open" in query) or ("start" in query) or ("play" in query) or("launch" in query)) and (("wordpad" in query) or (("word" in query) and ("pad" in query))):
+			speak("LAUNCHING WORDPAD ON YOUR SYSTEM")
+			os.system("wordpad")
+
+
+
+		elif("exit" in query) or ("close" in query)  or ("stop" in query) or ("terminate" in query) or ("quit" in query):
+			print()
+			print("THANK YOU FOR USING SCOUT")
+			speak("It was great meeting you, HAVE A NICE DAY, BYE")
+			break
+
+		elif 'open google' in query:
+			speak("Redirecting to Google\n") 
+			webbrowser.open("google.com")
+
+		elif ('send a mail' in query) or ( "send mail" in query ) or ( "mail" in query ): 
+			try: 
+				speak("What should I say?") 
+				content = UserInput() 
+				speak("whom should i send") 
+				to = input("Please provide the receivers mail:")     
+				sendEmail(to, content)
+				print("Sending mail....")
+				speak("Email has been sent !")
+				print("Email sent sucessfully!") 
+
+			except Exception as e: 
+				print(e) 
+				speak("I am not able to send this email")
+
+		elif ("send message" in query) or ("send a message" in query) or ("whatsapp" in query): 
+				# You need to create an account on Twilio to use this service 
+				account_sid = 'AC9f3cd23d11464799a08936965c1ba5ee'
+				auth_token = 'ef0e79a7b26904f919a8dca878d9f285'
+				speak(" Please tell the message you want to send ")
+				msg = UserInput()
+				speak("Enter the number u want to send the msg with")
+				print("Enter the number including code (e.g. +91):", end='')
+				num = str(input())
+				num_format='whatsapp:'+ num
+				client = Client(account_sid, auth_token) 
+
+				message = client.messages \
+							.create( 
+									body = msg, 
+									from_='whatsapp:+14155238886', 
+									to =num_format
+								) 
+				print("Sending....")
+				speak("Sending your Message")			
+				print(message.sid)
+				print("Sent Sucessfully")
+				speak("Your message was Sent successfully") 
+
+		elif "hello scout" in query:
+			speak("Scout at your service")
+
+		elif "weather" in query: 
+			  
+			# Google Open weather website 
+			# to get API of Open weather  
+			api_key = "c0ac7df72cb611f0424bb6e5feada153" 
+			base_url = "http://api.openweathermap.org/data/2.5/weather?"
+			speak("Which City or town You live in?") 
+			print("Your City/Town:") 
+			city_name = UserInput() 
+			complete_url = base_url + "appid=" + api_key + "&q=" + city_name 
+			response = requests.get(complete_url)  
+			x = response.json() 
+			
+            
+			 
+			if x["cod"] != "404":  
+				y = x["main"]  
+				current_temperature = y["temp"]  
+				current_pressure = y["pressure"]  
+				current_humidity = y["humidity"]
+				z = x["weather"] 
+				weather_description = z[0]["description"]
+				temp = str(current_temperature)
+				pres = str(current_pressure)
+				humi = str(current_humidity)
+				weat = str(weather_description)                
+				print("   Temperature (in kelvin unit) = " +str(current_temperature)+"\n   atmospheric pressure (in hPa unit) ="+ str(current_pressure) +"\n   humidity (in percentage) = " + str(current_humidity) +"\n   weather = " + str(weather_description))  
+				speak("The Temperature is "+ temp +" kelvin and the Pressure is "+  pres +" hpa with "+ humi + " percent humidity and " + weat +" in weather" )  
+			else:  
+				speak(" City Not Found ") 
+        
+
+
+		elif ("write a note" in query) or ("write note" in query) or ("make note" in query) or ("make a note" in query): 
+			speak("What should i write?") 
+			note = UserInput() 
+			file = open('SCOUT.txt', 'w') 
+			speak("Should i mention the date") 
+			snfm = UserInput() 
+			if 'yes' in snfm or 'sure' in snfm: 
+				strTime =str(datetime.datetime.today()).split()[0] 
+				file.write(strTime) 
+				file.write(" :- ") 
+				file.write(note)
+				speak("File Created Sucessfully")
+				print("Your file was created with name : 'SCOUT.TXT'") 
+			else: 
+				file.write(note)
+				speak("File Created Sucessfully")
+				print("Your file was created with name : 'SCOUT.TXT'")  
+        
+		elif "date" in query:
+		
+			pyttsx3.speak("displaying the date")
+			webbrowser.open("http://192.168.43.211/cgi-bin/iiec1.py?x=date")
+			pyttsx3.speak(" The date is")
+			pyttsx3.speak(datetime.date.today())    
+
+		elif "calendar" in query:
+			
+			webbrowser.open("http://192.168.43.211/cgi-bin/iiec1.py?x=cal")
+			speak(" today is")
+			speak(datetime.date.today())
+
+		else:
+			speak("SORRY, I am unable to process your requirement")
+			speak("You can ask me something else")
+			print()
