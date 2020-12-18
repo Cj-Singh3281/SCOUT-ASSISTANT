@@ -103,8 +103,8 @@ def sendEmail(to, content):
     server.ehlo() 
       
     # Enable low security in gmail 
-    server.login('jimmysal.408@gmail.com', 'beardman@3281') 
-    server.sendmail('jimmysal.408@gmail.com', to, content) 
+    server.login(' EMAIL ID', 'PASSWORD') 
+    server.sendmail('EMAIL ID ', to, content) 
     server.close()   
 
 # MAIN FUNCTION STARTS HERE 
@@ -300,8 +300,8 @@ if __name__ == '__main__':
 
 		elif ("send message" in query) or ("send a message" in query) or ("whatsapp" in query): 
 				# You need to create an account on Twilio to use this service 
-				account_sid = 'AC9f3cd23d11464799a08936965c1ba5ee'
-				auth_token = 'ef0e79a7b26904f919a8dca878d9f285'
+				account_sid = 'ACCOUNT SID'
+				auth_token = 'AUTHORIZATIN TOKEN'
 				speak(" Please tell the message you want to send ")
 				msg = UserInput()
 				speak("Enter the number u want to send the msg with")
@@ -313,7 +313,7 @@ if __name__ == '__main__':
 				message = client.messages \
 							.create( 
 									body = msg, 
-									from_='whatsapp:+14155238886', 
+									from_='SENDER'S NUMBER ', 
 									to =num_format
 								) 
 				print("Sending....")
