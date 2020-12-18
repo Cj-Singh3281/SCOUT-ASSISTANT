@@ -1,2 +1,2 @@
 # SCOUT-ASSISTANT
-An conversational AI, similar to voice assistants.
+A Voice Assistantusing Python 3 
